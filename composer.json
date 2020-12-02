@@ -1,0 +1,23 @@
+{
+    "name": "mtgbracket/common",
+    "description": "Simple library of common project classes packaged for re-use.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "brandinchiu",
+            "email": "brandinchiu@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "misfitpixel/common": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mtgbracket\\": "src/"
+        }
+    }
+}
