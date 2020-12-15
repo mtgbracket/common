@@ -76,16 +76,18 @@ abstract class BaseMicroservice
      * @param string $body
      * @return array|null
      */
-    protected function request(string $path, string $method, string $body = ''): ?array
+    protected function request(string $path, string $method, string $body = '', array $headers = []): ?array
     {
         $ch = curl_init();
 
         /**
          * pass through the oauth token.
          */
-        $headers = [
-            sprintf('Authorization: %s', $this->request->getCurrentRequest()->headers->get('Authorization'))
-        ];
+        if(empty($headers)) {
+            $headers = [
+                sprintf('Authorization: %s', $this->request->getCurrentRequest()->headers->get('Authorization'))
+            ];
+        }
 
         curl_setopt($ch, CURLOPT_URL, sprintf('%s/%s', $this->getBaseUrl(), $path));
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
