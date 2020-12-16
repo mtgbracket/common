@@ -27,4 +27,28 @@ class ArtistsService extends BaseMicroservice
     {
         return 'artists';
     }
+
+    /**
+     * @param int $artistId
+     * @return array|null
+     */
+    public function getArtist(int $artistId): ?array
+    {
+        return $this->request(sprintf("/artists/%d", $artistId), 'GET');
+    }
+
+    /**
+     * @param string $credit
+     * @param string|null $firstName
+     * @param string|null $lastName
+     * @return array|null
+     */
+    public function createArtist(string $credit, string $firstName = null, string $lastName = null): ?array
+    {
+        return $this->request("/artists", 'POST', json_encode([
+            'credit' => $credit,
+            'first_name' => $firstName,
+            'last_name' => $lastName
+        ]));
+    }
 }
