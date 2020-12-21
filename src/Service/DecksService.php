@@ -54,9 +54,10 @@ class DecksService extends BaseMicroservice
      * @param string|null $name
      * @param array|null $data
      * @param array|null $cards
+     * @param array $headers
      * @return array|null
      */
-    public function updateDeck(string $identifier, ?string $name, ?array $data, ?array $cards): ?array
+    public function updateDeck(string $identifier, ?string $name, ?array $data, ?array $cards, array $headers): ?array
     {
         $request = [];
 
@@ -72,7 +73,7 @@ class DecksService extends BaseMicroservice
             $request['cards'] = $cards;
         }
 
-        return $this->request(sprintf("/decks/%s", $identifier), 'PUT', json_encode($request));
+        return $this->request(sprintf("/decks/%s", $identifier), 'PUT', json_encode($request), $headers);
     }
 
     /**
