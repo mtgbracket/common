@@ -34,6 +34,6 @@ class EventsService extends BaseMicroservice
      */
     public function getEvent(int $eventId): ?array
     {
-        return $this->request(sprintf("/events/%d", $eventId), 'GET');
+        return $this->request(sprintf("events/%d", $eventId), 'GET');
     }
 }

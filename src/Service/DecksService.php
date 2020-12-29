@@ -34,7 +34,7 @@ class DecksService extends BaseMicroservice
      */
     public function getDeck(string $identifier): ?array
     {
-        return $this->request(sprintf("/decks/%s", $identifier), 'GET');
+        return $this->request(sprintf("decks/%s", $identifier), 'GET');
     }
 
     /**
@@ -44,7 +44,7 @@ class DecksService extends BaseMicroservice
      */
     public function createDeck(string $name, array $headers): ?array
     {
-        return $this->request("/decks", 'POST', json_encode([
+        return $this->request("decks", 'POST', json_encode([
             'name' => $name
         ]), $headers);
     }
@@ -73,7 +73,7 @@ class DecksService extends BaseMicroservice
             $request['cards'] = $cards;
         }
 
-        return $this->request(sprintf("/decks/%s", $identifier), 'PUT', json_encode($request), $headers);
+        return $this->request(sprintf("decks/%s", $identifier), 'PUT', json_encode($request), $headers);
     }
 
     /**
@@ -82,7 +82,7 @@ class DecksService extends BaseMicroservice
      */
     public function searchCards(string $query): ?array
     {
-        return $this->request(sprintf("/cards?q=%s", $query), 'GET');
+        return $this->request(sprintf("cards?q=%s", $query), 'GET');
     }
 
     /**
@@ -92,6 +92,6 @@ class DecksService extends BaseMicroservice
      */
     public function validateDeck(string $identifier, int $eventId): ?array
     {
-        return $this->request(sprintf("/events/%d/decks/%s/validity", $eventId, $identifier), 'GET');
+        return $this->request(sprintf("events/%d/decks/%s/validity", $eventId, $identifier), 'GET');
     }
 }

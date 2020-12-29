@@ -52,7 +52,7 @@ class AccountsService extends BaseMicroservice
      */
     public function getOrganization(int $organizationId): ?array
     {
-        return $this->request(sprintf("/organizations/%d/", $organizationId), 'GET');
+        return $this->request(sprintf("organizations/%d/", $organizationId), 'GET');
     }
 
     /**
