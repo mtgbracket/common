@@ -56,7 +56,7 @@ class WarehouseService
 
     /**
      * @param $userId
-     * @return DocumentSnapshot
+     * @return DocumentReference
      * @throws \Google\Cloud\Core\Exception\GoogleException
      */
     private function getDocument($userId): DocumentReference
@@ -66,6 +66,17 @@ class WarehouseService
             'keyFilePath' => $_ENV['GOOGLE_APPLICATION_CREDENTIALS']
         ]);
 
-        return $client->collection('achievements-warehouse')->document($userId);
+        $document = $client->collection('achievements-warehouse')->document($userId);
+
+        /**
+         * if a document hasn't been started for this user yet, initialize it.
+         */
+        if(!$document->snapshot()->exists()) {
+            $document->set([
+                'user_id' => $userId
+            ]);
+        }
+
+        return $document;
     }
 }
