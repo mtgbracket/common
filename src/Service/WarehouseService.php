@@ -15,9 +15,6 @@ use Google\Cloud\Firestore\FirestoreClient;
  */
 class WarehouseService
 {
-    /** @var DocumentReference */
-    private $document;
-
     /**
      * @param int $userId
      * @param string $field
@@ -64,18 +61,11 @@ class WarehouseService
      */
     private function getDocument($userId): DocumentReference
     {
-        /**
-         * if document not already cached, pull from warehouse.
-         */
-        if($this->document === null) {
-            $client = new FirestoreClient([
-                'projectId' => $_ENV['GOOGLE_PROJECT_ID'],
-                'keyFilePath' => $_ENV['GOOGLE_APPLICATION_CREDENTIALS']
-            ]);
+        $client = new FirestoreClient([
+            'projectId' => $_ENV['GOOGLE_PROJECT_ID'],
+            'keyFilePath' => $_ENV['GOOGLE_APPLICATION_CREDENTIALS']
+        ]);
 
-            $this->document = $client->collection('achievements-warehouse')->document($userId);
-        }
-
-        return $this->document;
+        return $client->collection('achievements-warehouse')->document($userId);
     }
 }
