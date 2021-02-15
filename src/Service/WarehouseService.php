@@ -50,8 +50,10 @@ class WarehouseService
     public function incrementValue(int $userId, string $field)
     {
         $this->getDocument($userId)->update([
-            'path' => $field,
-            'value' => FieldValue::increment(1)
+            [
+                'path' => $field,
+                'value' => FieldValue::increment(1)
+            ]
         ]);
     }
 
