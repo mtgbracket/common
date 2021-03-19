@@ -35,7 +35,7 @@ class FeedService
      * @param string|null $eventId
      * @throws \Exception
      */
-    public function postEvent(int $userId, int $targetId, string $template, string $message, array $data, ?string $eventId = null)
+    public function postEvent(int $userId, int $targetId, string $template, string $message, ?array $data = null, ?string $eventId = null)
     {
         /**
          * default
