@@ -57,6 +57,15 @@ class AccountsService extends BaseMicroservice
 
     /**
      * @param int $organizationId
+     * @return array|null
+     */
+    public function getOrganizationFollowers(int $organizationId): ?array
+    {
+        return $this->request(sprintf("organizations/%d/followers", $organizationId), 'GET');
+    }
+
+    /**
+     * @param int $organizationId
      * @param int $userId
      * @return array|null
      */
