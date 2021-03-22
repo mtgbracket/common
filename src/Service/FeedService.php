@@ -4,7 +4,6 @@
 namespace Mtgbracket\Service;
 
 
-use Doctrine\DBAL\Driver\PDOStatement;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
@@ -37,9 +36,6 @@ class FeedService
      */
     public function postEvent(int $userId, int $targetId, string $template, string $message, ?array $data = null, ?string $eventId = null)
     {
-        /**
-         * default
-         */
         if($eventId == null) {
             $eventId = substr(bin2hex(random_bytes(32)), 0, 32);
         }
@@ -48,12 +44,31 @@ class FeedService
             new GenericEvent([
                 'user_id' => $userId,
                 'target_id' => $targetId,
-                'template' => 'event.organization_invite',
+                'template' => $template,
                 'event_id' => $eventId,
                 'message' => $message,
                 'data' => $data,
             ]),
             'api.feed_event.dispatch'
         );
+    }
+
+    /**
+     * @param array $user
+     * @param array $follower
+     * @return bool
+     */
+    public function shouldDispatch(array $user, array $follower): bool
+    {
+        $visible = $user['preferences']['privacy']['feed_visibility'] !== 'private';
+
+        if(
+            $user['preferences']['privacy']['feed_visibility'] === 'following' &&
+            !$follower['is_following']
+        ) {
+            $visible = true;
+        }
+
+        return $visible;
     }
 }
