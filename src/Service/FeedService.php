@@ -62,11 +62,8 @@ class FeedService
     {
         $visible = $user['preferences']['privacy']['feed_visibility'] !== 'private';
 
-        if(
-            $user['preferences']['privacy']['feed_visibility'] === 'following' &&
-            !$follower['is_following']
-        ) {
-            $visible = true;
+        if($user['preferences']['privacy']['feed_visibility'] === 'following') {
+            $visible = $follower['is_following'];
         }
 
         return $visible;
