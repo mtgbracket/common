@@ -27,14 +27,14 @@ class FeedService
 
     /**
      * @param int $userId
-     * @param int $targetId
+     * @param int|null $targetId
      * @param string $template
      * @param string $message
-     * @param array $data
+     * @param array|null $data
      * @param string|null $eventId
      * @throws \Exception
      */
-    public function postEvent(int $userId, int $targetId, string $template, string $message, ?array $data = null, ?string $eventId = null)
+    public function postEvent(int $userId, ?int $targetId, string $template, string $message, ?array $data = null, ?string $eventId = null)
     {
         if($eventId == null) {
             $eventId = substr(bin2hex(random_bytes(32)), 0, 32);
